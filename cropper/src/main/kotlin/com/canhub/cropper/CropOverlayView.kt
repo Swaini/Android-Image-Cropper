@@ -21,7 +21,7 @@ import android.view.View
 import androidx.annotation.RequiresApi
 import com.canhub.cropper.CropImageView.CropShape
 import com.canhub.cropper.CropImageView.Guidelines
-import java.util.Arrays
+import java.util.*
 import kotlin.math.abs
 import kotlin.math.acos
 import kotlin.math.asin
@@ -1097,17 +1097,18 @@ internal class CropOverlayView @JvmOverloads constructor(
       when (event.action) {
         MotionEvent.ACTION_DOWN -> {
           onActionDown(event.x, event.y)
-          true
         }
         MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
           parent.requestDisallowInterceptTouchEvent(false)
           onActionUp()
-          true
         }
         MotionEvent.ACTION_MOVE -> {
-          onActionMove(event.x, event.y)
-          parent.requestDisallowInterceptTouchEvent(true)
-          true
+					val res = onActionMove(event.x, event.y)
+					if (res) {
+						parent.requestDisallowInterceptTouchEvent(true)
+						return true
+					}
+					return false
         }
         else -> false
       }
@@ -1120,48 +1121,57 @@ internal class CropOverlayView @JvmOverloads constructor(
    * On press down start crop window movement depending on the location of the press.<br></br>
    * if press is far from crop window then no move handler is returned (null).
    */
-  private fun onActionDown(x: Float, y: Float) {
-    mMoveHandler =
-      mCropWindowHandler.getMoveHandler(x, y, mTouchRadius, cropShape!!, mCenterMoveEnabled)
+  private fun onActionDown(x: Float, y: Float): Boolean {
+    mMoveHandler = mCropWindowHandler.getMoveHandler(x, y, mTouchRadius, cropShape!!, mCenterMoveEnabled)
 
-    if (mMoveHandler != null) invalidate()
+		return if (mMoveHandler != null){
+			invalidate()
+			true
+		}else{
+			false
+		}
   }
 
   /** Clear move handler starting in [onActionDown] if exists. */
-  private fun onActionUp() {
-    if (mMoveHandler != null) {
-      mMoveHandler = null
-      mCropWindowChangeListener?.onCropWindowChanged(false)
-      invalidate()
-    }
+  private fun onActionUp(): Boolean {
+		return if (mMoveHandler != null) {
+			mMoveHandler = null
+			mCropWindowChangeListener?.onCropWindowChanged(false)
+			invalidate()
+			true
+		}else{
+			false
+		}
   }
 
   /**
    * Handle move of crop window using the move handler created in [onActionDown].<br></br>
    * The move handler will do the proper move/resize of the crop window.
    */
-  private fun onActionMove(x: Float, y: Float) {
-    if (mMoveHandler != null) {
-      var snapRadius = mSnapRadius
-      val rect = mCropWindowHandler.getRect()
-      if (calculateBounds(rect)) {
-        snapRadius = 0f
-      }
-      mMoveHandler!!.move(
-        rect,
-        x,
-        y,
-        mCalcBounds,
-        mViewWidth,
-        mViewHeight,
-        snapRadius,
-        isFixAspectRatio,
-        mTargetAspectRatio,
-      )
-      mCropWindowHandler.setRect(rect)
-      mCropWindowChangeListener?.onCropWindowChanged(true)
-      invalidate()
-    }
+  private fun onActionMove(x: Float, y: Float): Boolean {
+		if (mMoveHandler != null) {
+			var snapRadius = mSnapRadius
+			val rect = mCropWindowHandler.getRect()
+			if (calculateBounds(rect)) {
+				snapRadius = 0f
+			}
+			mMoveHandler!!.move(
+				rect,
+				x,
+				y,
+				mCalcBounds,
+				mViewWidth,
+				mViewHeight,
+				snapRadius,
+				isFixAspectRatio,
+				mTargetAspectRatio,
+			)
+			mCropWindowHandler.setRect(rect)
+			mCropWindowChangeListener?.onCropWindowChanged(true)
+			invalidate()
+			return true
+		}
+		return false
   }
 
   /**

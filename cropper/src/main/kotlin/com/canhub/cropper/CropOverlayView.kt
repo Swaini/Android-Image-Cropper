@@ -21,7 +21,7 @@ import android.view.View
 import androidx.annotation.RequiresApi
 import com.canhub.cropper.CropImageView.CropShape
 import com.canhub.cropper.CropImageView.Guidelines
-import java.util.*
+import java.util.Arrays
 import kotlin.math.abs
 import kotlin.math.acos
 import kotlin.math.asin
@@ -1103,12 +1103,12 @@ internal class CropOverlayView @JvmOverloads constructor(
           onActionUp()
         }
         MotionEvent.ACTION_MOVE -> {
-					val res = onActionMove(event.x, event.y)
-					if (res) {
-						parent.requestDisallowInterceptTouchEvent(true)
-						return true
-					}
-					return false
+          val res = onActionMove(event.x, event.y)
+          if (res) {
+            parent.requestDisallowInterceptTouchEvent(true)
+            return true
+          }
+          return false
         }
         else -> false
       }
@@ -1124,24 +1124,24 @@ internal class CropOverlayView @JvmOverloads constructor(
   private fun onActionDown(x: Float, y: Float): Boolean {
     mMoveHandler = mCropWindowHandler.getMoveHandler(x, y, mTouchRadius, cropShape!!, mCenterMoveEnabled)
 
-		return if (mMoveHandler != null){
-			invalidate()
-			true
-		}else{
-			false
-		}
+    return if (mMoveHandler != null) {
+      invalidate()
+      true
+    } else {
+      false
+    }
   }
 
   /** Clear move handler starting in [onActionDown] if exists. */
   private fun onActionUp(): Boolean {
-		return if (mMoveHandler != null) {
-			mMoveHandler = null
-			mCropWindowChangeListener?.onCropWindowChanged(false)
-			invalidate()
-			true
-		}else{
-			false
-		}
+    return if (mMoveHandler != null) {
+      mMoveHandler = null
+      mCropWindowChangeListener?.onCropWindowChanged(false)
+      invalidate()
+      true
+    } else {
+      false
+    }
   }
 
   /**
@@ -1149,29 +1149,29 @@ internal class CropOverlayView @JvmOverloads constructor(
    * The move handler will do the proper move/resize of the crop window.
    */
   private fun onActionMove(x: Float, y: Float): Boolean {
-		if (mMoveHandler != null) {
-			var snapRadius = mSnapRadius
-			val rect = mCropWindowHandler.getRect()
-			if (calculateBounds(rect)) {
-				snapRadius = 0f
-			}
-			mMoveHandler!!.move(
-				rect,
-				x,
-				y,
-				mCalcBounds,
-				mViewWidth,
-				mViewHeight,
-				snapRadius,
-				isFixAspectRatio,
-				mTargetAspectRatio,
-			)
-			mCropWindowHandler.setRect(rect)
-			mCropWindowChangeListener?.onCropWindowChanged(true)
-			invalidate()
-			return true
-		}
-		return false
+    if (mMoveHandler != null) {
+      var snapRadius = mSnapRadius
+      val rect = mCropWindowHandler.getRect()
+      if (calculateBounds(rect)) {
+        snapRadius = 0f
+      }
+      mMoveHandler!!.move(
+        rect,
+        x,
+        y,
+        mCalcBounds,
+        mViewWidth,
+        mViewHeight,
+        snapRadius,
+        isFixAspectRatio,
+        mTargetAspectRatio,
+      )
+      mCropWindowHandler.setRect(rect)
+      mCropWindowChangeListener?.onCropWindowChanged(true)
+      invalidate()
+      return true
+    }
+    return false
   }
 
   /**

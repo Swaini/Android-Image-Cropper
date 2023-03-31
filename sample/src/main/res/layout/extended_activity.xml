@@ -98,7 +98,7 @@
 		<TextView
 			android:layout_width="match_parent"
 			android:layout_height="500dp"
-			android:text="This is precisely why you are bound to experience convenience and communicate without interruptions with the highly advanced services of Globfone. Globfone takes usability and user satisfaction to a whole new level with these exemplary services. Employ our time efficient services and make good use of your time. The attractive and easy to use interface lets users send text messages in a matter of minutes. Additionally, sending free text messages repeatedly to converse is also a great possibility only with these brilliant services of Globfone. So let’s get started, send free text message now."
+			android:text="@string/test"
 			app:layout_constraintBottom_toTopOf="parent"
 			app:layout_constraintTop_toBottomOf="@id/reset" />
 	</LinearLayout>

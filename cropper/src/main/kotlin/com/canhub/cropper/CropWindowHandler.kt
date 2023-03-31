@@ -226,7 +226,7 @@ internal class CropWindowHandler {
         !focusCenter() -> {
         CropWindowMoveHandler.Type.CENTER
       }
-      else -> { null}
+      else -> { null }
     }
   }
 

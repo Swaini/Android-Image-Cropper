@@ -28,7 +28,7 @@ publishing {
 		create<MavenPublication>("maven") {
 			groupId = "com.cube"
 			artifactId = "cropper.image"
-			version = "1.0.1"
+			version = "5.0.0"
 
 			from(components["java"])
 		}
@@ -76,5 +76,10 @@ subprojects {
 
   tasks.withType(Test::class.java).all {
     testLogging.exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+  }
+  tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    kotlinOptions {
+      jvmTarget = "11"
+    }
   }
 }

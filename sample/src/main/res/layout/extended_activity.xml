@@ -1,81 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/bg_purple_gradient"
-    >
-  <ImageView
-      android:importantForAccessibility="no"
-      android:id="@+id/backBtn"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:background="?attr/selectableItemBackgroundBorderless"
-      android:padding="@dimen/keyline_x4"
-      app:srcCompat="@drawable/ic_arrow_back_24"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      />
-  <TextView
-      android:id="@+id/saveBtn"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:background="?attr/selectableItemBackgroundBorderless"
-      android:padding="@dimen/keyline_x4"
-      android:text="@string/save"
-      android:textColor="@color/orange"
-      app:layout_constraintBottom_toBottomOf="@id/backBtn"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toTopOf="@id/backBtn"
-      />
-  <ImageView
-      android:importantForAccessibility="no"
-      android:id="@+id/canhubLogo"
-      android:layout_width="100dp"
-      android:layout_height="100dp"
-      android:src="@drawable/canhub_logo_white"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-      />
-  <TextView
-      android:id="@+id/rotateText"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:padding="@dimen/keyline_x4"
-      android:gravity="center"
-      android:textIsSelectable="false"
-      tools:text="@string/rotation_value"
-      android:textColor="@color/white"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/canhubLogo"
-      />
-  <TextView
-      android:id="@+id/expectedImageSize"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:padding="@dimen/keyline_x4"
-      android:gravity="center"
-      tools:text="Crop Rect"
-      android:textIsSelectable="false"
-      android:textColor="@color/white"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/rotateText"
-      />
-  <com.canhub.cropper.CropImageView
-      android:id="@+id/cropImageView"
-      android:layout_width="0dp"
-      android:layout_height="0dp"
-      android:layout_marginStart="@dimen/keyline_x2"
-      android:layout_marginTop="@dimen/keyline"
-      android:layout_marginEnd="@dimen/keyline_x2"
-      android:layout_marginBottom="@dimen/keyline_x2"
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/expectedImageSize"
-      />
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+<androidx.core.widget.NestedScrollView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<LinearLayout
+
+		xmlns:tools="http://schemas.android.com/tools"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@drawable/bg_purple_gradient"
+		android:gravity="center"
+		android:orientation="vertical"
+		>
+
+		<ImageView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:id="@+id/backBtn"
+			android:background="?attr/selectableItemBackgroundBorderless"
+			android:importantForAccessibility="no"
+			android:padding="@dimen/keyline_x4"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:srcCompat="@drawable/ic_arrow_back_24"
+			/>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:id="@+id/saveBtn"
+			android:background="?attr/selectableItemBackgroundBorderless"
+			android:padding="@dimen/keyline_x4"
+			android:text="@string/save"
+			android:textColor="@color/orange"
+			app:layout_constraintBottom_toBottomOf="@id/backBtn"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintTop_toTopOf="@id/backBtn"
+			/>
+
+		<ImageView
+			android:layout_width="100dp"
+			android:layout_height="100dp"
+			android:id="@+id/canhubLogo"
+			android:importantForAccessibility="no"
+			android:src="@drawable/canhub_logo_white"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			/>
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/rotateText"
+			android:gravity="center"
+			android:padding="@dimen/keyline_x4"
+			android:textColor="@color/white"
+			android:textIsSelectable="false"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/canhubLogo"
+			tools:text="@string/rotation_value"
+			/>
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/expectedImageSize"
+			android:gravity="center"
+			android:padding="@dimen/keyline_x4"
+			android:textColor="@color/white"
+			android:textIsSelectable="false"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/rotateText"
+			tools:text="Crop Rect"
+			/>
+
+		<com.canhub.cropper.CropImageView
+			android:layout_width="match_parent"
+			android:layout_height="300dp"
+			android:id="@+id/cropImageView"
+			android:layout_marginBottom="@dimen/keyline_x2"
+			android:layout_marginEnd="@dimen/keyline_x2"
+			android:layout_marginStart="@dimen/keyline_x2"
+			android:layout_marginTop="@dimen/keyline"
+			app:cropAutoZoomEnabled="false"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/expectedImageSize"
+			/>
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="500dp"
+			android:text="This is precisely why you are bound to experience convenience and communicate without interruptions with the highly advanced services of Globfone. Globfone takes usability and user satisfaction to a whole new level with these exemplary services. Employ our time efficient services and make good use of your time. The attractive and easy to use interface lets users send text messages in a matter of minutes. Additionally, sending free text messages repeatedly to converse is also a great possibility only with these brilliant services of Globfone. So let’s get started, send free text message now."
+			app:layout_constraintBottom_toTopOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/reset" />
+	</LinearLayout>
+</androidx.core.widget.NestedScrollView>

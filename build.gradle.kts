@@ -1,3 +1,4 @@
+
 buildscript {
   repositories {
     mavenCentral()
@@ -17,6 +18,21 @@ buildscript {
 
 plugins {
   alias(libs.plugins.codequalitytools)
+	java
+	kotlin("jvm") version "1.6.0"
+	`maven-publish`
+}
+
+publishing {
+	publications {
+		create<MavenPublication>("maven") {
+			groupId = "com.cube"
+			artifactId = "cropper.image"
+			version = "1.0.1"
+
+			from(components["java"])
+		}
+	}
 }
 
 codeQualityTools {
